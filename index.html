@@ -8,13 +8,26 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
       color: white;
       text-align: center;
+      background: url('https://media.discordapp.net/attachments/1299726509078085743/1487217477476679751/ffc9178b-182a-412e-a1a3-cec1b2d91f06.jpg?ex=69c856b5&is=69c70535&hm=e635bad2be428326740b8dac5fd7913dce737632a90bfe9b860c1ee60329fd4c&=&format=webp&width=1382&height=922') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Capa oscura para que el texto sea legible */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: -1;
     }
 
     .topbar {
-      background: #020617;
+      background: rgba(2,6,23,0.8);
+      backdrop-filter: blur(10px);
       padding: 15px;
       display: flex;
       justify-content: center;
@@ -28,8 +41,35 @@
       font-weight: bold;
     }
 
+    h1 {
+      margin-top: 20px;
+      font-size: 36px;
+    }
+
+    .arm-info {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: left;
+    }
+
+    .arm-info h2 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .arm-info p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
     .container {
-      margin-top: 50px;
+      margin: 40px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -37,15 +77,12 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
-      width: 300px;
-    }
-
-    h1 {
-      margin-top: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+      width: 320px;
     }
 
     h2 {
@@ -58,23 +95,27 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      background: #22c55e;
+      background: linear-gradient(45deg, #22c55e, #4ade80);
       color: white;
-      margin: 8px;
+      margin: 10px;
       transition: 0.3s;
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 0 15px #22c55e;
     }
 
     .youtube {
-      background: #ef4444;
+      background: linear-gradient(45deg, #ef4444, #f87171);
     }
   </style>
 </head>
 <body>
 
+  <div class="overlay"></div>
+
+  <!-- TOPBAR -->
   <div class="topbar">
     <a href="https://www.tiktok.com/@duxscript" target="_blank">TikTok Dux</a>
     <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
@@ -82,6 +123,19 @@
 
   <h1>Dux x David Script</h1>
 
+  <!-- INFORMACIÓN DE ARM -->
+  <div class="arm-info">
+    <h2>ARM32 y ARM64</h2>
+    <p><strong>ARM32 (Versión Antigua)</strong><br>
+    Común en dispositivos antes de 2015. Procesa menos datos y tiene rendimiento limitado en apps pesadas.</p>
+
+    <p><strong>ARM64 (Versión Moderna)</strong><br>
+    El estándar de dispositivos actuales. Mucho más rápido, ideal para juegos como Roblox, mayor seguridad y fluidez total.</p>
+
+    <p><em>Piensa en ellas como autopistas: una de 2 carriles y otra de 8 carriles.</em></p>
+  </div>
+
+  <!-- SCRIPTS -->
   <div class="container">
 
     <!-- Attack on Titan -->
@@ -114,18 +168,12 @@
       </button>
     </div>
 
-    <!-- NUEVO MENU: Executores -->
+    <!-- EXECUTOR PUNK -->
     <div class="card">
       <h2>Executores</h2>
 
       <button onclick="window.location.href='https://link-target.net/1391205/Hc9DABhrClse'">
-        Executor
-      </button>
-
-      <br>
-
-      <button onclick="window.location.href='https://link-target.net/1391205/Hc9DABhrClse'">
-        Punk
+        Executor Punk
       </button>
     </div>
 
