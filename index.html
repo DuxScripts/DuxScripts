@@ -28,39 +28,40 @@
       font-weight: bold;
     }
 
-    .topbar a:hover {
-      text-decoration: underline;
+    .container {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
     }
 
-    .container {
-      margin-top: 80px;
+    .card {
       background: rgba(255,255,255,0.05);
-      padding: 40px;
+      padding: 30px;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(0,0,0,0.5);
-      display: inline-block;
+      width: 300px;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+      margin-top: 20px;
     }
 
     h2 {
-      margin-bottom: 30px;
       color: #38bdf8;
     }
 
     button {
-      padding: 15px 30px;
-      font-size: 18px;
+      padding: 12px 25px;
+      font-size: 16px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       background: #22c55e;
       color: white;
+      margin: 8px;
       transition: 0.3s;
-      margin: 10px;
     }
 
     button:hover {
@@ -69,10 +70,6 @@
 
     .youtube {
       background: #ef4444;
-    }
-
-    .youtube:hover {
-      background: #dc2626;
     }
   </style>
 </head>
@@ -83,19 +80,40 @@
     <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
   </div>
 
+  <h1>Dux x David Script</h1>
+
   <div class="container">
-    <h1>Dux x David Script</h1>
-    <h2>Attack on Titan</h2>
 
-    <button onclick="window.location.href='https://link-hub.net/1391205/oI7UbwUXHHao'">
-      Script
-    </button>
+    <!-- Attack on Titan -->
+    <div class="card">
+      <h2>Attack on Titan</h2>
 
-    <br>
+      <button onclick="window.location.href='https://link-hub.net/1391205/oI7UbwUXHHao'">
+        Script
+      </button>
 
-    <button class="youtube" onclick="window.location.href='https://youtu.be/aPZN2os2gmo?si=dP8lhqHDLn4MqO6F'">
-      Ver en YouTube
-    </button>
+      <br>
+
+      <button class="youtube" onclick="window.location.href='https://youtu.be/aPZN2os2gmo?si=dP8lhqHDLn4MqO6F'">
+        Ver en YouTube
+      </button>
+    </div>
+
+    <!-- Rock Fruit -->
+    <div class="card">
+      <h2>Rock Fruit</h2>
+
+      <button onclick="window.location.href='https://link-target.net/1391205/YHNTYT8JydfK'">
+        Script
+      </button>
+
+      <br>
+
+      <button class="youtube" onclick="window.location.href='https://youtu.be/G4x33OczU_M?si=E5VTLoJpHWslT7eS'">
+        Ver en YouTube
+      </button>
+    </div>
+
   </div>
 
 </body>
