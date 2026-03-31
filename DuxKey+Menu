@@ -1,20 +1,19 @@
 -- CONFIG
-local SERVICE_ID = "duxscript" -- 👈 TU SERVICE ID
-
---// ================== KEY SYSTEM ================== \\--
+local SERVICE_ID = "duxscript"
+local DISCORD_LINK = "https://discord.gg/FZcCnNAmE9"
+local VERSION = "v1.2"
 
 local BaseURL = "https://new.pandadevelopment.net/api/v1"
+local HttpService = game:GetService("HttpService")
 
+-- HWID
 local function getHardwareId()
     local success, hwid = pcall(gethwid)
-    if success and hwid then
-        return hwid
-    end
-
-    local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-    return tostring(RbxAnalyticsService:GetClientId()):gsub("-", "")
+    if success and hwid then return hwid end
+    return game:GetService("RbxAnalyticsService"):GetClientId():gsub("-", "")
 end
 
+-- REQUEST
 local function requestFunc(data)
     if syn and syn.request then
         return syn.request(data)
@@ -27,15 +26,12 @@ local function requestFunc(data)
     end
 end
 
+-- VALIDATE
 local function Validate(key)
-    local HttpService = game:GetService("HttpService")
-
     local response = requestFunc({
         Url = BaseURL .. "/keys/validate",
         Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
+        Headers = {["Content-Type"] = "application/json"},
         Body = HttpService:JSONEncode({
             ServiceID = SERVICE_ID,
             HWID = getHardwareId(),
@@ -44,91 +40,149 @@ local function Validate(key)
     })
 
     if not response or not response.Body then
-        return {success = false, message = "No response"}
+        return {success = false}
     end
 
     local data = HttpService:JSONDecode(response.Body)
 
     return {
         success = data.Authenticated_Status == "Success",
-        message = data.Note or "Error",
-        isPremium = data.Key_Premium or false,
         expireDate = data.Expire_Date
     }
 end
 
-local function GetKeyURL()
-    return "https://new.pandadevelopment.net/getkey/" .. SERVICE_ID .. "?hwid=" .. getHardwareId()
-end
+-- SAVE KEY
+local file = "DuxKey.txt"
+local function SaveKey(k) if writefile then writefile(file,k) end end
+local function LoadKey() if isfile and isfile(file) then return readfile(file) end end
 
---// ================== GUI ================== \\--
-
+-- GUI
 local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+
 local Frame = Instance.new("Frame", ScreenGui)
-Frame.Size = UDim2.new(0, 350, 0, 200)
-Frame.Position = UDim2.new(0.5, -175, 0.5, -100)
-Frame.BackgroundColor3 = Color3.fromRGB(30, 0, 50)
+Frame.Size = UDim2.new(0, 360, 0, 210)
+Frame.Position = UDim2.new(0.5, -180, 0.5, -105)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 0, 60)
 Frame.Active = true
 Frame.Draggable = true
 Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
 
-local Title = Instance.new("TextLabel", Frame)
-Title.Size = UDim2.new(1,0,0,40)
-Title.Text = "Redeem your key"
-Title.TextColor3 = Color3.fromRGB(200,150,255)
-Title.BackgroundTransparency = 1
+-- BRILLO EN BORDES
+local Stroke = Instance.new("UIStroke", Frame)
+Stroke.Color = Color3.fromRGB(0, 170, 255) -- azul brillante
+Stroke.Thickness = 2
+Stroke.Transparency = 0
 
+-- TITLE
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1,0,0,35)
+Title.BackgroundTransparency = 1
+Title.Text = "Dux Key System"
+Title.TextColor3 = Color3.fromRGB(200,150,255)
+Title.TextScaled = true
+
+-- VERSION ABAJO IZQUIERDA
+local VersionLabel = Instance.new("TextLabel", Frame)
+VersionLabel.Size = UDim2.new(0,60,0,20)
+VersionLabel.Position = UDim2.new(0,5,1,-25) -- esquina inferior izquierda
+VersionLabel.BackgroundTransparency = 1
+VersionLabel.Text = VERSION
+VersionLabel.TextColor3 = Color3.fromRGB(150,150,255)
+VersionLabel.TextScaled = true
+
+-- TEXTBOX
 local Box = Instance.new("TextBox", Frame)
 Box.Size = UDim2.new(0.9,0,0,35)
 Box.Position = UDim2.new(0.05,0,0.3,0)
 Box.PlaceholderText = "Enter key..."
-Box.BackgroundColor3 = Color3.fromRGB(50,0,80)
+Box.ClearTextOnFocus = false
+Box.Text = ""
+Box.BackgroundColor3 = Color3.fromRGB(50,0,90)
 Box.TextColor3 = Color3.new(1,1,1)
 Instance.new("UICorner", Box)
 
+-- GET KEY
 local GetKey = Instance.new("TextButton", Frame)
 GetKey.Size = UDim2.new(0.4,0,0,35)
 GetKey.Position = UDim2.new(0.05,0,0.6,0)
 GetKey.Text = "Get Key"
-GetKey.BackgroundColor3 = Color3.fromRGB(70,0,120)
+GetKey.BackgroundColor3 = Color3.fromRGB(80,0,140)
+GetKey.TextColor3 = Color3.new(1,1,1)
 Instance.new("UICorner", GetKey)
 
+-- REDEEM
 local Redeem = Instance.new("TextButton", Frame)
 Redeem.Size = UDim2.new(0.4,0,0,35)
 Redeem.Position = UDim2.new(0.55,0,0.6,0)
 Redeem.Text = "Redeem"
-Redeem.BackgroundColor3 = Color3.fromRGB(150,0,255)
+Redeem.BackgroundColor3 = Color3.fromRGB(170,0,255)
+Redeem.TextColor3 = Color3.new(1,1,1)
 Instance.new("UICorner", Redeem)
 
+-- DISCORD (SEPARADO)
+local Discord = Instance.new("TextButton", Frame)
+Discord.Size = UDim2.new(0.9,0,0,30)
+Discord.Position = UDim2.new(0.05,0,0.82,0)
+Discord.Text = "Join Discord"
+Discord.BackgroundColor3 = Color3.fromRGB(0,120,255)
+Discord.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", Discord)
+
+-- STATUS
 local Status = Instance.new("TextLabel", Frame)
-Status.Size = UDim2.new(1,0,0,25)
-Status.Position = UDim2.new(0,0,0.82,0)
+Status.Size = UDim2.new(1,0,0,20)
+Status.Position = UDim2.new(0,0,1,-20)
 Status.BackgroundTransparency = 1
 Status.Text = ""
 Status.TextColor3 = Color3.new(1,1,1)
+Status.TextScaled = true
 
 -- BOTONES
 GetKey.MouseButton1Click:Connect(function()
-    local url = GetKeyURL()
+    local url = "https://new.pandadevelopment.net/getkey/"..SERVICE_ID.."?hwid="..getHardwareId()
     if setclipboard then setclipboard(url) end
     Status.Text = "Link copiado"
+    task.wait(2)
+    Status.Text = ""
 end)
 
-Redeem.MouseButton1Click:Connect(function()
-    Status.Text = "Checking..."
+Discord.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(DISCORD_LINK)
+        Status.Text = "Discord copiado"
+        task.wait(2)
+        Status.Text = ""
+    end
+end)
 
-    local result = Validate(Box.Text)
-
-    if result.success then
-        Status.Text = "Correct Key!"
-
-        wait(0.5)
-
-        -- TU SCRIPT
+-- AUTO LOGIN
+local saved = LoadKey()
+if saved then
+    local r = Validate(saved)
+    if r.success then
         loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/a0ef21f7eb414867"))()
+        ScreenGui:Destroy()
+        return
+    end
+end
 
+-- REDEEM
+Redeem.MouseButton1Click:Connect(function()
+    if Box.Text == "" then return end
+
+    Status.Text = "Checking..."
+    local r = Validate(Box.Text)
+
+    if r.success then
+        SaveKey(Box.Text)
+        Status.Text = "Expira: "..tostring(r.expireDate)
+
+        task.wait(1.5)
+        loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/a0ef21f7eb414867"))()
         ScreenGui:Destroy()
     else
-        Status.Text = result.message
+        Status.Text = "Invalid Key"
+        task.wait(2)
+        Status.Text = ""
     end
 end)
