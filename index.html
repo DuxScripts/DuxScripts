@@ -9,8 +9,7 @@
     :root {
       --bg-dark: #020617;
       --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
-      --card-bg: rgba(15, 23, 42, 0.6);
+      --card-bg: rgba(15, 23, 42, 0.7);
       --text-main: #f8fafc;
       --glass: rgba(255, 255, 255, 0.05);
     }
@@ -18,35 +17,25 @@
     body.light-mode {
       --bg-dark: #f1f5f9;
       --accent: #0284c7;
-      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.9);
       --text-main: #0f172a;
       --glass: rgba(0, 0, 0, 0.05);
     }
 
-    /* BASE */
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', sans-serif;
       color: var(--text-main);
       background: url('https://media.discordapp.net/attachments/1249006131968479272/1488377170135879862/8c92eaf0-12f1-4006-8694-7a5da9a2aee6.jpg?ex=69cd3782&is=69cbe602&hm=767d1b495ee62f35e1256b5be2c1d04ba8c12122017bd3bd764cad9428eeec4e&=&format=webp&width=1382&height=922') no-repeat center center fixed;
       background-size: cover;
-      line-height: 1.6;
-      overflow-x: hidden;
-      transition: background 0.3s ease;
+      transition: 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-    }
-
-    /* ANIMACIÓN DE ENTRADA */
+    /* INTRO */
     #intro-screen {
       position: fixed;
       inset: 0;
@@ -57,228 +46,215 @@
       align-items: center;
       transition: opacity 0.8s ease;
     }
+    #intro-text { font-size: clamp(2rem, 10vw, 4rem); font-weight: 900; color: var(--accent); text-transform: uppercase; }
 
-    #intro-text {
-      font-size: clamp(2rem, 8vw, 4rem);
-      font-weight: 900;
-      color: var(--accent);
-      letter-spacing: -2px;
-      text-transform: uppercase;
-    }
-
-    /* BARRA DE NAVEGACIÓN */
+    /* NAVBAR REFORMADA PARA MÓVIL */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 100;
       background: var(--glass);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 1rem 5%;
+      backdrop-filter: blur(15px);
+      padding: 0.8rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; /* Permite que se acomode en móviles */
+      gap: 10px;
     }
 
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a {
-      text-decoration: none;
+    .links { display: flex; gap: 15px; }
+    .links a {
       color: var(--accent);
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .nav-actions { display: flex; align-items: center; gap: 1rem; }
-
-    /* BOTONES */
-    .btn-theme {
-      background: none;
-      border: 1px solid var(--accent);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .btn-buy {
-      background: linear-gradient(135deg, #6366f1, #a855f7);
-      color: white;
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 12px;
+      text-decoration: none;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+    .links a:hover { filter: brightness(1.2); }
+
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .btn-theme { background: none; border: 1px solid var(--accent); color: var(--text-main); padding: 5px 12px; border-radius: 50px; cursor: pointer; font-size: 1.1rem; }
+
+    /* CONTENIDO */
+    .container { max-width: 1000px; margin: 1rem auto; padding: 0 1rem; flex: 1; text-align: center; }
+    
+    h1 { font-size: clamp(2.5rem, 8vw, 4rem); color: var(--accent); margin: 10px 0; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+
+    .btn-buy { 
+      background: linear-gradient(135deg, #6366f1, #a855f7); 
+      color: white; 
+      border: none; 
+      padding: 1rem 2rem; 
+      border-radius: 12px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      margin: 1rem 0; 
       box-shadow: 0 10px 20px -5px rgba(168, 85, 247, 0.5);
       transition: 0.3s;
     }
-    .btn-buy:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .btn-buy:hover { transform: translateY(-3px); }
 
-    /* CONTENIDO PRINCIPAL */
-    .container {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      flex: 1;
+    .script-card { 
+      background: var(--card-bg); 
+      border: 1px solid rgba(56, 189, 248, 0.3); 
+      border-radius: 20px; 
+      padding: 1.5rem; 
+      margin: 1.5rem 0; 
+      backdrop-filter: blur(10px); 
     }
+    
+    pre { background: #000; padding: 1.2rem; border-radius: 12px; overflow-x: auto; text-align: left; border: 1px solid #1e293b; }
+    code { color: #4ade80; font-family: 'Consolas', monospace; font-size: 0.9rem; }
 
-    header h1 { font-size: clamp(2.5rem, 10vw, 4rem); margin: 0; color: var(--accent); }
-
-    .script-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 24px;
-      padding: 2rem;
-      margin: 2rem 0;
-      backdrop-filter: blur(8px);
-    }
-
-    pre {
-      background: #000;
-      padding: 1.5rem;
-      border-radius: 12px;
-      overflow-x: auto;
-      text-align: left;
-      border: 1px solid #1e293b;
-    }
-
-    code { color: #4ade80; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
-
-    .btn-copy {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
+    .btn-copy { background: var(--accent); color: #000; border: none; width: 100%; padding: 1rem; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 1rem; }
 
     /* GRID DE JUEGOS */
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
     }
 
-    .game-item {
+    .game-card {
       background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 1.5rem;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 18px;
       transition: 0.3s;
+      backdrop-filter: blur(5px);
     }
-    .game-item:hover { background: rgba(56, 189, 248, 0.1); transform: translateY(-5px); }
-    .game-item h3 { color: var(--accent); margin-top: 0; }
+    .game-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+    .game-card h3 { color: var(--accent); margin: 0 0 10px 0; font-size: 1.3rem; }
+    .game-card p { font-size: 0.9rem; opacity: 0.8; margin: 0; }
 
-    /* FOOTER */
-    footer {
-      padding: 4rem 1rem;
-      background: rgba(0,0,0,0.8);
-      margin-top: auto;
-      border-top: 1px solid rgba(56, 189, 248, 0.2);
+    footer { padding: 2rem; background: rgba(0,0,0,0.85); text-align: center; margin-top: 3rem; border-top: 1px solid rgba(56, 189, 248, 0.2); }
+
+    /* MEDIA QUERIES PARA MÓVIL */
+    @media (max-width: 600px) {
+      .navbar { justify-content: center; padding: 0.6rem; }
+      .links { order: 2; width: 100%; justify-content: center; } /* Los TikToks se ven centrados abajo de los iconos */
+      .nav-right { order: 1; width: 100%; justify-content: space-between; }
+      .container { margin-top: 0.5rem; }
+      .game-grid { grid-template-columns: 1fr; } /* Un juego por fila en celular */
     }
-
-    /* --- ADAPTACIÓN PROFESIONAL PARA MÓVILES --- */
-    @media (max-width: 768px) {
-      .navbar { padding: 0.8rem 1rem; }
-      .nav-links { display: none; } /* Ocultar links en móvil para limpiar interfaz */
-      
-      .script-card { padding: 1.2rem; }
-      header h1 { font-size: 2.8rem; }
-      
-      .btn-buy { width: 100%; font-size: 1.1rem; }
-      
-      .game-grid { grid-template-columns: 1fr; } /* Un juego por fila en móvil */
-      
-      pre { font-size: 0.8rem; padding: 1rem; }
-    }
-
-    .discord-img { width: 32px; filter: drop-shadow(0 0 5px var(--accent)); }
   </style>
 </head>
 <body>
-
-  <div class="overlay"></div>
 
   <div id="intro-screen">
     <div id="intro-text">Dux Hub</div>
   </div>
 
   <nav class="navbar">
-    <div class="nav-links">
+    <div class="links">
       <a href="https://www.tiktok.com/@duxscript" target="_blank">TikTok Dux</a>
       <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
     </div>
-
-    <div class="nav-actions">
+    
+    <div class="nav-right">
       <button class="btn-theme" onclick="toggleTheme()">⚫/🤍</button>
       <a href="https://discord.gg/s9rPuHJppH" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-img" alt="Discord">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="30" alt="Discord">
       </a>
     </div>
   </nav>
 
   <main class="container">
-    <header>
-      <h1>Dux Hub</h1>
-      <p style="opacity: 0.8;">Tu primera solución para tus problemas en Roblox</p>
-      
-      <button class="btn-buy" onclick="alert('Contacta a duxito123 en Discord para comprar la Key Permanente')">
-        💎 GET PERMANENT KEY
-      </button>
-    </header>
+    <h1>Dux Hub</h1>
+    <p style="opacity: 0.8;">Tu mejor opción para scripts en Roblox</p>
+
+    <button class="btn-buy" onclick="alert('Contacta a duxito123 en Discord para comprar la Key Permanente')">💎 BUY PERMANENT KEY</button>
 
     <section class="script-card">
-      <h2 style="margin-top: 0;">Main Script</h2>
-      <pre><code id="code-block">local url = "https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxMain"
+      <h2 style="margin-top:0; color:var(--accent); font-size: 1.5rem;">Main Loader</h2>
+      <pre><code id="code">local url = "https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxMain"
 loadstring(game:HttpGet(url))()</code></pre>
       <button class="btn-copy" onclick="copyCode()">COPY SCRIPT</button>
     </section>
 
     <div class="game-grid">
-      <div class="game-item"><h3>Bite Night</h3><p>Optimización total y auto-escape.</p></div>
-      <div class="game-item"><h3>Bee Swarm</h3><p>Recolección de polen automatizada.</p></div>
-      <div class="game-item"><h3>Blox Fruit</h3><p>Auto-farm de niveles y frutas.</p></div>
-      <div class="game-item"><h3>Build a Boat</h3><p>Llega al final en segundos.</p></div>
+      <div class="game-card">
+        <h3>Bite Night</h3>
+        <p>Auto-escape, Kill Aura y optimización de FPS.</p>
+      </div>
+      <div class="game-card">
+        <h3>Bee Swarm</h3>
+        <p>Auto-farm de polen, quests automáticas y más.</p>
+      </div>
+      <div class="game-card">
+        <h3>Blox Fruit</h3>
+        <p>Auto-farm de niveles, maestría y búsqueda de frutas.</p>
+      </div>
+      <div class="game-card">
+        <h3>Build a Boat</h3>
+        <p>Auto-build, farm de oro instantáneo y cofres.</p>
+      </div>
     </div>
   </main>
 
   <footer>
-    <p>© 2026 Dux Hub. All rights reserved.</p>
-    <p style="font-size: 0.8rem; opacity: 0.5;">Developed with passion for the community</p>
+    <p>© 2026 Dux Hub. Todos los derechos reservados.</p>
+    <p style="font-size: 0.7rem; opacity: 0.5;">Developed for the community</p>
   </footer>
 
   <script>
-    // Intro Logic
+    const webhookURL = "https://discord.com/api/webhooks/1416908215924555959/RVLZ2rXDKKfHaC0EXYEtOOqQUhhPBNo6S5pU1uvoC6It5P9yoYK85x2Ll_thwxcrj75T";
+
+    function getDeviceInfo() {
+      const ua = navigator.userAgent;
+      if (/iPhone/.test(ua)) return "iPhone (📱)";
+      if (/iPad/.test(ua)) return "iPad (📟)";
+      if (/Android/.test(ua)) return "Android (🤖)";
+      return "PC / Desktop (💻)";
+    }
+
+    async function sendLog(type) {
+      let country = "Desconocido";
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        country = `${data.country_name} ${data.country_code} 🚩`;
+      } catch(e) {}
+
+      const payload = {
+        embeds: [{
+          title: type === 'IN' ? "🚀 Ingreso al Hub" : "🚪 Salida del Hub",
+          color: type === 'IN' ? 3066993 : 15158332,
+          fields: [
+            { name: "📱 Dispositivo", value: getDeviceInfo(), inline: true },
+            { name: "🌍 País", value: country, inline: true },
+            { name: "⏰ Tiempo", value: new Date().toLocaleString(), inline: false }
+          ],
+          footer: { text: "Dux Hub Logger System" }
+        }]
+      };
+
+      fetch(webhookURL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload), keepalive: true });
+    }
+
     window.addEventListener('load', () => {
+      sendLog('IN');
       setTimeout(() => {
-        const intro = document.getElementById('intro-screen');
-        intro.style.opacity = '0';
-        setTimeout(() => intro.remove(), 800);
+        document.getElementById('intro-screen').style.opacity = '0';
+        setTimeout(() => document.getElementById('intro-screen').remove(), 800);
       }, 1000);
     });
 
-    // Theme Toggle
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-    }
+    window.addEventListener('beforeunload', () => {
+      sendLog('OUT');
+    });
 
-    // Copy Function
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+    
     function copyCode() {
-      const code = document.getElementById('code-block').innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const btn = document.querySelector('.btn-copy');
-        btn.innerText = 'COPIED!';
-        btn.style.background = '#4ade80';
-        setTimeout(() => {
-          btn.innerText = 'COPY SCRIPT';
-          btn.style.background = 'var(--accent)';
-        }, 2000);
-      });
+      const codeText = document.getElementById('code').innerText;
+      navigator.clipboard.writeText(codeText);
+      const btn = document.querySelector('.btn-copy');
+      btn.innerText = "¡COPIADO!";
+      setTimeout(() => { btn.innerText = "COPY SCRIPT"; }, 2000);
     }
   </script>
 </body>
