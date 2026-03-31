@@ -1,0 +1,134 @@
+-- CONFIG
+local SERVICE_ID = "duxscript" -- 👈 TU SERVICE ID
+
+--// ================== KEY SYSTEM ================== \\--
+
+local BaseURL = "https://new.pandadevelopment.net/api/v1"
+
+local function getHardwareId()
+    local success, hwid = pcall(gethwid)
+    if success and hwid then
+        return hwid
+    end
+
+    local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+    return tostring(RbxAnalyticsService:GetClientId()):gsub("-", "")
+end
+
+local function requestFunc(data)
+    if syn and syn.request then
+        return syn.request(data)
+    elseif http and http.request then
+        return http.request(data)
+    elseif request then
+        return request(data)
+    else
+        error("Executor no soporta requests")
+    end
+end
+
+local function Validate(key)
+    local HttpService = game:GetService("HttpService")
+
+    local response = requestFunc({
+        Url = BaseURL .. "/keys/validate",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode({
+            ServiceID = SERVICE_ID,
+            HWID = getHardwareId(),
+            Key = key
+        })
+    })
+
+    if not response or not response.Body then
+        return {success = false, message = "No response"}
+    end
+
+    local data = HttpService:JSONDecode(response.Body)
+
+    return {
+        success = data.Authenticated_Status == "Success",
+        message = data.Note or "Error",
+        isPremium = data.Key_Premium or false,
+        expireDate = data.Expire_Date
+    }
+end
+
+local function GetKeyURL()
+    return "https://new.pandadevelopment.net/getkey/" .. SERVICE_ID .. "?hwid=" .. getHardwareId()
+end
+
+--// ================== GUI ================== \\--
+
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 350, 0, 200)
+Frame.Position = UDim2.new(0.5, -175, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 0, 50)
+Frame.Active = true
+Frame.Draggable = true
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1,0,0,40)
+Title.Text = "Redeem your key"
+Title.TextColor3 = Color3.fromRGB(200,150,255)
+Title.BackgroundTransparency = 1
+
+local Box = Instance.new("TextBox", Frame)
+Box.Size = UDim2.new(0.9,0,0,35)
+Box.Position = UDim2.new(0.05,0,0.3,0)
+Box.PlaceholderText = "Enter key..."
+Box.BackgroundColor3 = Color3.fromRGB(50,0,80)
+Box.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", Box)
+
+local GetKey = Instance.new("TextButton", Frame)
+GetKey.Size = UDim2.new(0.4,0,0,35)
+GetKey.Position = UDim2.new(0.05,0,0.6,0)
+GetKey.Text = "Get Key"
+GetKey.BackgroundColor3 = Color3.fromRGB(70,0,120)
+Instance.new("UICorner", GetKey)
+
+local Redeem = Instance.new("TextButton", Frame)
+Redeem.Size = UDim2.new(0.4,0,0,35)
+Redeem.Position = UDim2.new(0.55,0,0.6,0)
+Redeem.Text = "Redeem"
+Redeem.BackgroundColor3 = Color3.fromRGB(150,0,255)
+Instance.new("UICorner", Redeem)
+
+local Status = Instance.new("TextLabel", Frame)
+Status.Size = UDim2.new(1,0,0,25)
+Status.Position = UDim2.new(0,0,0.82,0)
+Status.BackgroundTransparency = 1
+Status.Text = ""
+Status.TextColor3 = Color3.new(1,1,1)
+
+-- BOTONES
+GetKey.MouseButton1Click:Connect(function()
+    local url = GetKeyURL()
+    if setclipboard then setclipboard(url) end
+    Status.Text = "Link copiado"
+end)
+
+Redeem.MouseButton1Click:Connect(function()
+    Status.Text = "Checking..."
+
+    local result = Validate(Box.Text)
+
+    if result.success then
+        Status.Text = "Correct Key!"
+
+        wait(0.5)
+
+        -- TU SCRIPT
+        loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/a0ef21f7eb414867"))()
+
+        ScreenGui:Destroy()
+    else
+        Status.Text = result.message
+    end
+end)
