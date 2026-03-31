@@ -3,188 +3,256 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dux x David Script</title>
+  <title>Dux Hub</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-      background: url('https://media.discordapp.net/attachments/1299726509078085743/1487217477476679751/ffc9178b-182a-412e-a1a3-cec1b2d91f06.jpg') no-repeat center center fixed;
-      background-size: cover;
+    :root {
+      --bg-color: #0f172a;
+      --text-color: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --topbar-bg: rgba(2, 6, 23, 0.8);
     }
 
-    .overlay {
+    body.light-mode {
+      --bg-color: #f8fafc;
+      --text-color: #0f172a;
+      --card-bg: rgba(0, 0, 0, 0.08);
+      --topbar-bg: rgba(255, 255, 255, 0.8);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-color);
+      background: url('https://media.discordapp.net/attachments/1249006131968479272/1488377170135879862/8c92eaf0-12f1-4006-8694-7a5da9a2aee6.jpg?ex=69cd3782&is=69cbe602&hm=767d1b495ee62f35e1256b5be2c1d04ba8c12122017bd3bd764cad9428eeec4e&=&format=webp&width=1382&height=922') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      transition: background-color 0.4s, color 0.4s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .overlay-main {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.4);
       z-index: -1;
     }
 
-    .topbar {
-      background: rgba(2,6,23,0.8);
-      backdrop-filter: blur(10px);
-      padding: 15px;
+    /* PANTALLA DE INICIO */
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
       display: flex;
       justify-content: center;
-      gap: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      align-items: center;
+      transition: opacity 0.6s ease;
     }
 
-    .topbar a {
+    #intro-text {
+      font-size: 70px;
+      font-weight: bold;
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+    }
+
+    /* BARRA SUPERIOR */
+    .topbar {
+      background: var(--topbar-bg);
+      backdrop-filter: blur(12px);
+      padding: 10px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .topbar-links a {
       color: #38bdf8;
       text-decoration: none;
       font-weight: bold;
+      margin-right: 20px;
+      font-size: 14px;
     }
 
-    h1 {
-      margin-top: 20px;
-      font-size: 36px;
-    }
-
-    .arm-info {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      text-align: left;
-    }
-
-    .arm-info h2 {
-      color: #38bdf8;
-      margin-bottom: 10px;
-    }
-
-    .arm-info p {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 15px;
-    }
-
-    .container {
-      margin: 40px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.6);
-      width: 320px;
-    }
-
-    h2 {
-      color: #38bdf8;
-    }
-
-    button {
-      padding: 12px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: linear-gradient(45deg, #22c55e, #4ade80);
+    .theme-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #38bdf8;
       color: white;
-      margin: 10px;
+      padding: 5px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .discord-icon {
+      width: 35px;
       transition: 0.3s;
     }
 
-    button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 15px #22c55e;
+    .discord-icon:hover { transform: scale(1.1); }
+
+    /* CONTENIDO */
+    .main-content {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      flex: 1; /* Empuja el footer hacia abajo */
     }
 
-    .youtube {
-      background: linear-gradient(45deg, #ef4444, #f87171);
+    h1 { font-size: 50px; color: #38bdf8; margin-bottom: 5px; }
+
+    /* BOTÓN BUY KEY */
+    .buy-key-btn {
+      background: linear-gradient(45deg, #6366f1, #a855f7);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 15px 0;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
     }
 
-    .buy {
-      background: linear-gradient(45deg, #6366f1, #818cf8);
+    .buy-key-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+    }
+
+    .script-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid #38bdf8;
+      margin: 20px auto;
+      max-width: 700px;
+    }
+
+    code {
+      display: block;
+      background: #000;
+      color: #4ade80;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-family: monospace;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .copy-btn {
+      background: #38bdf8;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card h3 { color: #38bdf8; margin: 0 0 10px 0; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 20px; /* Más espacio arriba y abajo */
+      background: var(--topbar-bg);
+      font-weight: bold;
+      margin-top: 50px;
+      border-top: 1px solid rgba(56, 189, 248, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <div class="overlay"></div>
+  <div class="overlay-main"></div>
+
+  <div id="intro-screen">
+    <div id="intro-text">Dux Hub</div>
+  </div>
 
   <div class="topbar">
-    <a href="https://www.tiktok.com/@duxscript" target="_blank">TikTok Dux</a>
-    <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
+    <div class="topbar-links">
+      <a href="https://www.tiktok.com/@duxscript" target="_blank">TikTok Dux</a>
+      <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
+    </div>
+
+    <button class="theme-btn" onclick="toggleTheme()">⚫/🤍</button>
+
+    <a href="https://discord.gg/s9rPuHJppH" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-icon" alt="Discord">
+    </a>
   </div>
 
-  <h1>Dux x David Script</h1>
+  <div class="main-content">
+    <h1>Dux Hub</h1>
+    
+    <button class="buy-key-btn" onclick="alert('Habla con duxito123 en Discord para obtener tu Key Permanente.')">
+      💎 Buy Key Permanent
+    </button>
 
-  <!-- BOTÓN BUY KEY -->
-  <button class="buy" onclick="alert('Contáctame: duxito123 (Discord MD)')">
-    Buy Key Permanente
-  </button>
+    <div class="script-container">
+      <h3>Script Loader</h3>
+      <code id="script-text">local url = "https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxMain"
+loadstring(game:HttpGet(url))()</code>
+      <button class="copy-btn" onclick="copyScript()">COPIAR SCRIPT</button>
+    </div>
 
-  <div class="arm-info">
-    <h2>ARM32 y ARM64</h2>
-    <p><strong>ARM32 (Versión Antigua)</strong><br>
-    Común en dispositivos antes de 2015. Procesa menos datos y tiene rendimiento limitado en apps pesadas.</p>
-
-    <p><strong>ARM64 (Versión Moderna)</strong><br>
-    El estándar de dispositivos actuales. Mucho más rápido, ideal para juegos como Roblox, mayor seguridad y fluidez total.</p>
-
-    <p><em>Piensa en ellas como autopistas: una de 2 carriles y otra de 8 carriles.</em></p>
+    <div class="grid">
+      <div class="card"><h3>Bite Night</h3><p>Scripts actualizados.</p></div>
+      <div class="card"><h3>Bee Swarm</h3><p>Auto-farm recolección.</p></div>
+      <div class="card"><h3>Blox Fruit</h3><p>Maestría rápida.</p></div>
+      <div class="card"><h3>Build a Boat</h3><p>Auto-build activo.</p></div>
+    </div>
   </div>
 
-  <div class="container">
+  <footer>
+    © 2026 Dux Hub. All rights reserved.
+  </footer>
 
-    <div class="card">
-      <h2>Attack on Titan</h2>
-      <button onclick="window.location.href='https://link-hub.net/1391205/oI7UbwUXHHao'">
-        Script
-      </button>
-      <br>
-      <button class="youtube" onclick="window.location.href='https://youtu.be/aPZN2os2gmo'">
-        Ver en YouTube
-      </button>
-    </div>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const intro = document.getElementById('intro-screen');
+        intro.style.opacity = '0';
+        setTimeout(() => { intro.style.display = 'none'; }, 600);
+      }, 1000);
+    });
 
-    <div class="card">
-      <h2>Rock Fruit</h2>
-      <button onclick="window.location.href='https://link-target.net/1391205/YHNTYT8JydfK'">
-        Script
-      </button>
-      <br>
-      <button class="youtube" onclick="window.location.href='https://youtu.be/G4x33OczU_M'">
-        Ver en YouTube
-      </button>
-    </div>
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
 
-    <!-- BITE BY NIGHT ACTUALIZADO -->
-    <div class="card">
-      <h2>Bite By Night</h2>
-      <button onclick="window.location.href='https://link-hub.net/1391205/KnK9ICJqW5U1'">
-        Script
-      </button>
-      <br>
-      <button class="youtube" onclick="window.location.href='https://youtu.be/h6Ibj0JqjWA'">
-        Ver en YouTube
-      </button>
-    </div>
-
-    <div class="card">
-      <h2>Executores</h2>
-      <button onclick="window.location.href='https://link-target.net/1391205/Hc9DABhrClse'">
-        Executor Punk
-      </button>
-    </div>
-
-  </div>
-
+    function copyScript() {
+      const text = document.getElementById('script-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("¡Script copiado al portapapeles!");
+      });
+    }
+  </script>
 </body>
 </html>
