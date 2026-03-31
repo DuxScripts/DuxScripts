@@ -1,43 +1,34 @@
-repeat wait() until game:IsLoaded()
-
-local HttpGet = (syn and syn.request) or (http and http.request) or http_request or request
-
-local function get(url)
-    return game:HttpGet(url)
-end
-
 local scripts = {
     [70845479499574] = function()
-        print("Ejecutando Bite By Night")
-        loadstring(get("https://rawscripts.net/raw/BETA-Bite-By-Night-celeron-gui-158274"))()
+        print("Ejecutando script: Bite By Night")
+        loadstring(game:HttpGet("https://rawscripts.net/raw/BETA-Bite-By-Night-celeron-gui-158274"))()
     end,
 
     [13379208636] = function()
-        print("Ejecutando Luarmor")
-        loadstring(get("https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua"))()
+        print("Ejecutando script: Luarmor")
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua"))()
     end,
 
     [2753915549] = function()
-        print("Ejecutando Blox Fruits")
-        loadstring(get("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+        print("Ejecutando script: Blox Fruits")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
     end,
 
     [537413528] = function()
-        print("Ejecutando Build A Boat")
-        loadstring(get("https://raw.githubusercontent.com/TheRealAsu/BABFT/main/Loader.lua"))()
+        print("Ejecutando script: Build A Boat")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealAsu/BABFT/main/Loader.lua"))()
     end,
 
     [1537690962] = function()
-        print("Ejecutando Bee Swarm Simulator")
-        loadstring(get("https://raw.githubusercontent.com/Chris12089/atlasbss/main/script.lua"))()
+        print("Ejecutando script: Bee Swarm Simulator")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/main/script.lua"))()
     end
 }
 
 local placeId = game.PlaceId
-print("Place ID detectado:", placeId)
 
 if scripts[placeId] then
     scripts[placeId]()
 else
-    warn("❌ No hay script para este juego")
+    warn("❌ Este juego no tiene script asignado")
 end
