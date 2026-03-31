@@ -1,34 +1,51 @@
+local function run(url)
+    local success, result = pcall(function()
+        return game:HttpGet(url)
+    end)
+
+    if success and result then
+        loadstring(result)()
+    else
+        warn("❌ Error cargando script:", url)
+    end
+end
+
 local scripts = {
     [70845479499574] = function()
-        print("Ejecutando script: Bite By Night")
-        loadstring(game:HttpGet("https://rawscripts.net/raw/BETA-Bite-By-Night-celeron-gui-158274"))()
+        print("Bite By Night")
+        run("https://rawscripts.net/raw/BETA-Bite-By-Night-celeron-gui-158274")
     end,
 
     [13379208636] = function()
-        print("Ejecutando script: Luarmor")
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua"))()
-    end,
-
-    [2753915549] = function()
-        print("Ejecutando script: Blox Fruits")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+        print("Luarmor")
+        run("https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua")
     end,
 
     [537413528] = function()
-        print("Ejecutando script: Build A Boat")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealAsu/BABFT/main/Loader.lua"))()
+        print("Build A Boat")
+        run("https://raw.githubusercontent.com/TheRealAsu/BABFT/main/Loader.lua")
     end,
 
     [1537690962] = function()
-        print("Ejecutando script: Bee Swarm Simulator")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/main/script.lua"))()
+        print("Bee Swarm")
+        run("https://raw.githubusercontent.com/Chris12089/atlasbss/main/script.lua")
     end
+}
+
+-- Blox Fruits (todos los mares)
+local bloxFruitsIds = {
+    [2753915549] = true,
+    [4442272183] = true,
+    [7449423635] = true
 }
 
 local placeId = game.PlaceId
 
-if scripts[placeId] then
+if bloxFruitsIds[placeId] then
+    print("Blox Fruits detectado")
+    run("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI")
+elseif scripts[placeId] then
     scripts[placeId]()
 else
-    warn("❌ Este juego no tiene script asignado")
+    warn("❌ No hay script para este juego")
 end
