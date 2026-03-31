@@ -3,254 +3,281 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dux Hub</title>
+  <title>Dux Hub | Premium Scripts</title>
   <style>
+    /* VARIABLES DE DISEÑO */
     :root {
-      --bg-color: #0f172a;
-      --text-color: #ffffff;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --topbar-bg: rgba(2, 6, 23, 0.8);
+      --bg-dark: #020617;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --card-bg: rgba(15, 23, 42, 0.6);
+      --text-main: #f8fafc;
+      --glass: rgba(255, 255, 255, 0.05);
     }
 
     body.light-mode {
-      --bg-color: #f8fafc;
-      --text-color: #0f172a;
-      --card-bg: rgba(0, 0, 0, 0.08);
-      --topbar-bg: rgba(255, 255, 255, 0.8);
+      --bg-dark: #f1f5f9;
+      --accent: #0284c7;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --text-main: #0f172a;
+      --glass: rgba(0, 0, 0, 0.05);
     }
 
+    /* BASE */
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--text-color);
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
       background: url('https://media.discordapp.net/attachments/1249006131968479272/1488377170135879862/8c92eaf0-12f1-4006-8694-7a5da9a2aee6.jpg?ex=69cd3782&is=69cbe602&hm=767d1b495ee62f35e1256b5be2c1d04ba8c12122017bd3bd764cad9428eeec4e&=&format=webp&width=1382&height=922') no-repeat center center fixed;
       background-size: cover;
-      text-align: center;
-      transition: background-color 0.4s, color 0.4s;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s ease;
     }
 
-    .overlay-main {
+    .overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
 
-    /* PANTALLA DE INICIO */
+    /* ANIMACIÓN DE ENTRADA */
     #intro-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 9999;
+      inset: 0;
+      background: #000;
+      z-index: 10000;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.8s ease;
     }
 
     #intro-text {
-      font-size: 70px;
-      font-weight: bold;
-      color: #38bdf8;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -2px;
+      text-transform: uppercase;
     }
 
-    /* BARRA SUPERIOR */
-    .topbar {
-      background: var(--topbar-bg);
+    /* BARRA DE NAVEGACIÓN */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass);
       backdrop-filter: blur(12px);
-      padding: 10px 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
 
-    .topbar-links a {
-      color: #38bdf8;
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
       text-decoration: none;
-      font-weight: bold;
-      margin-right: 20px;
-      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
     }
 
-    .theme-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid #38bdf8;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+    /* BOTONES */
+    .btn-theme {
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 1.2rem;
     }
 
-    .discord-icon {
-      width: 35px;
-      transition: 0.3s;
-    }
-
-    .discord-icon:hover { transform: scale(1.1); }
-
-    /* CONTENIDO */
-    .main-content {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-      flex: 1; /* Empuja el footer hacia abajo */
-    }
-
-    h1 { font-size: 50px; color: #38bdf8; margin-bottom: 5px; }
-
-    /* BOTÓN BUY KEY */
-    .buy-key-btn {
-      background: linear-gradient(45deg, #6366f1, #a855f7);
+    .btn-buy {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 10px;
+      padding: 0.8rem 2rem;
+      border-radius: 12px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 16px;
-      margin: 15px 0;
+      box-shadow: 0 10px 20px -5px rgba(168, 85, 247, 0.5);
       transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+    .btn-buy:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    /* CONTENIDO PRINCIPAL */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
     }
 
-    .buy-key-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
-    }
+    header h1 { font-size: clamp(2.5rem, 10vw, 4rem); margin: 0; color: var(--accent); }
 
-    .script-container {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 25px;
-      border-radius: 15px;
-      border: 1px solid #38bdf8;
-      margin: 20px auto;
-      max-width: 700px;
-    }
-
-    code {
-      display: block;
-      background: #000;
-      color: #4ade80;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-family: monospace;
-      font-size: 14px;
-      text-align: left;
-    }
-
-    .copy-btn {
-      background: #38bdf8;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .card {
+    .script-card {
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 24px;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(8px);
     }
 
-    .card h3 { color: #38bdf8; margin: 0 0 10px 0; }
+    pre {
+      background: #000;
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      text-align: left;
+      border: 1px solid #1e293b;
+    }
+
+    code { color: #4ade80; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+
+    .btn-copy {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    /* GRID DE JUEGOS */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .game-item {
+      background: var(--glass);
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: 0.3s;
+    }
+    .game-item:hover { background: rgba(56, 189, 248, 0.1); transform: translateY(-5px); }
+    .game-item h3 { color: var(--accent); margin-top: 0; }
 
     /* FOOTER */
     footer {
-      padding: 40px 20px; /* Más espacio arriba y abajo */
-      background: var(--topbar-bg);
-      font-weight: bold;
-      margin-top: 50px;
-      border-top: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4rem 1rem;
+      background: rgba(0,0,0,0.8);
+      margin-top: auto;
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
     }
+
+    /* --- ADAPTACIÓN PROFESIONAL PARA MÓVILES --- */
+    @media (max-width: 768px) {
+      .navbar { padding: 0.8rem 1rem; }
+      .nav-links { display: none; } /* Ocultar links en móvil para limpiar interfaz */
+      
+      .script-card { padding: 1.2rem; }
+      header h1 { font-size: 2.8rem; }
+      
+      .btn-buy { width: 100%; font-size: 1.1rem; }
+      
+      .game-grid { grid-template-columns: 1fr; } /* Un juego por fila en móvil */
+      
+      pre { font-size: 0.8rem; padding: 1rem; }
+    }
+
+    .discord-img { width: 32px; filter: drop-shadow(0 0 5px var(--accent)); }
   </style>
 </head>
 <body>
 
-  <div class="overlay-main"></div>
+  <div class="overlay"></div>
 
   <div id="intro-screen">
     <div id="intro-text">Dux Hub</div>
   </div>
 
-  <div class="topbar">
-    <div class="topbar-links">
+  <nav class="navbar">
+    <div class="nav-links">
       <a href="https://www.tiktok.com/@duxscript" target="_blank">TikTok Dux</a>
       <a href="https://www.tiktok.com/@davidscrips" target="_blank">TikTok David</a>
     </div>
 
-    <button class="theme-btn" onclick="toggleTheme()">⚫/🤍</button>
-
-    <a href="https://discord.gg/s9rPuHJppH" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-icon" alt="Discord">
-    </a>
-  </div>
-
-  <div class="main-content">
-    <h1>Dux Hub</h1>
-    
-    <button class="buy-key-btn" onclick="alert('Habla con duxito123 en Discord para obtener tu Key Permanente.')">
-      💎 Buy Key Permanent
-    </button>
-
-    <div class="script-container">
-      <h3>Script Loader</h3>
-      <code id="script-text">local url = "https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxMain"
-loadstring(game:HttpGet(url))()</code>
-      <button class="copy-btn" onclick="copyScript()">COPIAR SCRIPT</button>
+    <div class="nav-actions">
+      <button class="btn-theme" onclick="toggleTheme()">⚫/🤍</button>
+      <a href="https://discord.gg/s9rPuHJppH" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="discord-img" alt="Discord">
+      </a>
     </div>
+  </nav>
 
-    <div class="grid">
-      <div class="card"><h3>Bite Night</h3><p>Scripts actualizados.</p></div>
-      <div class="card"><h3>Bee Swarm</h3><p>Auto-farm recolección.</p></div>
-      <div class="card"><h3>Blox Fruit</h3><p>Maestría rápida.</p></div>
-      <div class="card"><h3>Build a Boat</h3><p>Auto-build activo.</p></div>
+  <main class="container">
+    <header>
+      <h1>Dux Hub</h1>
+      <p style="opacity: 0.8;">Tu primera solución para tus problemas en Roblox</p>
+      
+      <button class="btn-buy" onclick="alert('Contacta a duxito123 en Discord para comprar la Key Permanente')">
+        💎 GET PERMANENT KEY
+      </button>
+    </header>
+
+    <section class="script-card">
+      <h2 style="margin-top: 0;">Main Script</h2>
+      <pre><code id="code-block">local url = "https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxMain"
+loadstring(game:HttpGet(url))()</code></pre>
+      <button class="btn-copy" onclick="copyCode()">COPY SCRIPT</button>
+    </section>
+
+    <div class="game-grid">
+      <div class="game-item"><h3>Bite Night</h3><p>Optimización total y auto-escape.</p></div>
+      <div class="game-item"><h3>Bee Swarm</h3><p>Recolección de polen automatizada.</p></div>
+      <div class="game-item"><h3>Blox Fruit</h3><p>Auto-farm de niveles y frutas.</p></div>
+      <div class="game-item"><h3>Build a Boat</h3><p>Llega al final en segundos.</p></div>
     </div>
-  </div>
+  </main>
 
   <footer>
-    © 2026 Dux Hub. All rights reserved.
+    <p>© 2026 Dux Hub. All rights reserved.</p>
+    <p style="font-size: 0.8rem; opacity: 0.5;">Developed with passion for the community</p>
   </footer>
 
   <script>
+    // Intro Logic
     window.addEventListener('load', () => {
       setTimeout(() => {
         const intro = document.getElementById('intro-screen');
         intro.style.opacity = '0';
-        setTimeout(() => { intro.style.display = 'none'; }, 600);
+        setTimeout(() => intro.remove(), 800);
       }, 1000);
     });
 
-    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+    // Theme Toggle
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
 
-    function copyScript() {
-      const text = document.getElementById('script-text').innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("¡Script copiado al portapapeles!");
+    // Copy Function
+    function copyCode() {
+      const code = document.getElementById('code-block').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        btn.innerText = 'COPIED!';
+        btn.style.background = '#4ade80';
+        setTimeout(() => {
+          btn.innerText = 'COPY SCRIPT';
+          btn.style.background = 'var(--accent)';
+        }, 2000);
       });
     }
   </script>
