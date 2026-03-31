@@ -160,7 +160,8 @@ local saved = LoadKey()
 if saved then
     local r = Validate(saved)
     if r.success then
-        loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/a0ef21f7eb414867"))()
+        -- 👇 Ejecuta tu script de GitHub cuando la key es válida
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxGame"))()
         ScreenGui:Destroy()
         return
     end
@@ -178,7 +179,8 @@ Redeem.MouseButton1Click:Connect(function()
         Status.Text = "Expira: "..tostring(r.expireDate)
 
         task.wait(1.5)
-        loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/a0ef21f7eb414867"))()
+        -- 👇 Ejecuta tu script de GitHub cuando la key es válida
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DuxScripts/DuxScripts/main/DuxGame"))()
         ScreenGui:Destroy()
     else
         Status.Text = "Invalid Key"
