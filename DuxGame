@@ -1,0 +1,19 @@
+local scripts = {
+    [70845479499574] = function()
+        print("Ejecutando script: Bite By Night")
+        loadstring(game:HttpGet("https://rawscripts.net/raw/BETA-Bite-By-Night-celeron-gui-158274"))()
+    end,
+
+    [13379208636] = function()
+        print("Ejecutando script: Luarmor")
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua"))()
+    end
+}
+
+local placeId = game.PlaceId
+
+if scripts[placeId] then
+    scripts[placeId]()
+else
+    warn("❌ Este juego no tiene script asignado")
+end
