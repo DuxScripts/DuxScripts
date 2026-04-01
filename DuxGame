@@ -29,6 +29,12 @@ local scripts = {
     [1537690962] = function()
         print("Bee Swarm")
         run("https://raw.githubusercontent.com/Chris12089/atlasbss/main/script.lua")
+    end,
+
+    -- NUEVO JUEGO
+    [77747658251236] = function()
+        print("Sailor Piece")
+        run("https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua")
     end
 }
 
