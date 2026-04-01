@@ -48,7 +48,7 @@
     }
     #intro-text { font-size: clamp(2rem, 10vw, 4rem); font-weight: 900; color: var(--accent); text-transform: uppercase; }
 
-    /* NAVBAR REFORMADA PARA MÓVIL */
+    /* NAVBAR */
     .navbar {
       position: sticky;
       top: 0;
@@ -190,11 +190,18 @@ loadstring(game:HttpGet(url))()</code></pre>
         <p>Auto-build, farm de oro instantáneo y cofres.</p>
       </div>
 
-      <!-- NUEVO -->
       <div class="game-card">
         <h3>Sailor Piece</h3>
         <p>Auto-farm, habilidades automáticas y mejoras de combate.</p>
       </div>
+
+      <!-- AÑADIDO -->
+      <div class="game-card">
+        <h3>Blue X Hub</h3>
+        <p>Acceso exclusivo con sistema de link para Blox Fruits.</p>
+        <button class="btn-copy" onclick="copyBlueX()">COPIAR LINK</button>
+      </div>
+
     </div>
   </main>
 
@@ -258,6 +265,17 @@ loadstring(game:HttpGet(url))()</code></pre>
       const btn = document.querySelector('.btn-copy');
       btn.innerText = "¡COPIADO!";
       setTimeout(() => { btn.innerText = "COPY SCRIPT"; }, 2000);
+    }
+
+    // AÑADIDO
+    function copyBlueX() {
+      const link = "https://loot-link.com/s?UXXD5EMO";
+      navigator.clipboard.writeText(link);
+      const btn = event.target;
+      btn.innerText = "¡LINK COPIADO!";
+      setTimeout(() => {
+        btn.innerText = "COPIAR LINK";
+      }, 2000);
     }
   </script>
 </body>
