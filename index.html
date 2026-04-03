@@ -48,24 +48,34 @@
         transition: 0.3s;
     }
 
-    /* Botón negro (Punk) */
-    .black {
-        background: black;
-        color: white;
+    .black { background: black; color: white; }
+    .black:hover { background: #222; }
+
+    .btn { background: #00c3ff; color: black; }
+    .btn:hover { background: #0099cc; }
+
+    /* --- Responsive: Mobile --- */
+    @media screen and (max-width: 768px) {
+        .container {
+            width: 95%;
+            margin: 20px auto;
+            padding: 15px;
+        }
+        h1 { font-size: 22px; }
+        h2 { font-size: 18px; margin-top: 20px; }
+        button { font-size: 14px; padding: 10px; }
     }
 
-    .black:hover {
-        background: #222;
-    }
-
-    /* Botones scripts */
-    .btn {
-        background: #00c3ff;
-        color: black;
-    }
-
-    .btn:hover {
-        background: #0099cc;
+    /* --- Responsive: Desktop --- */
+    @media screen and (min-width: 769px) {
+        .container {
+            width: 500px;
+            margin: 60px auto;
+            padding: 25px;
+        }
+        h1 { font-size: 28px; }
+        h2 { font-size: 20px; }
+        button { font-size: 16px; padding: 12px; }
     }
 </style>
 </head>
