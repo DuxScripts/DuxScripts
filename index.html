@@ -2,12 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- IMPORTANTE para iPhone -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>Dux Hub</title>
 
 <style>
-    body {
+    html, body {
         margin: 0;
+        padding: 0;
+        height: 100%;
+        background: black; /* 🔥 evita blanco */
+    }
+
+    body {
         font-family: Arial, sans-serif;
         background-image: url('https://media.discordapp.net/attachments/1299726509078085743/1487217477476679751/ffc9178b-182a-412e-a1a3-cec1b2d91f06.jpg?ex=69d0e875&is=69cf96f5&hm=e67ed4e91a841c5e6287b66f4663dfde7a5e922bad0d84555c4e987dd0fa940b&=&format=webp&width=1382&height=922');
         background-size: cover;
@@ -16,25 +25,24 @@
         background-attachment: fixed;
         color: white;
         text-align: center;
+
+        /* 🔥 FIX iPhone safe areas */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     .container {
         background: rgba(0,0,0,0.7);
         padding: 20px;
-        margin: 40px auto;
+        margin: 20px auto;
         width: 90%;
         max-width: 500px;
         border-radius: 15px;
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(6px);
     }
 
-    h1 {
-        margin-bottom: 10px;
-    }
-
-    h2 {
-        margin-top: 30px;
-    }
+    h1 { margin-bottom: 10px; }
+    h2 { margin-top: 25px; }
 
     button {
         display: block;
@@ -45,37 +53,23 @@
         border-radius: 10px;
         font-size: 16px;
         cursor: pointer;
-        transition: 0.3s;
     }
 
-    .black { background: black; color: white; }
-    .black:hover { background: #222; }
-
-    .btn { background: #00c3ff; color: black; }
-    .btn:hover { background: #0099cc; }
-
-    /* --- Responsive: Mobile --- */
-    @media screen and (max-width: 768px) {
-        .container {
-            width: 95%;
-            margin: 20px auto;
-            padding: 15px;
-        }
-        h1 { font-size: 22px; }
-        h2 { font-size: 18px; margin-top: 20px; }
-        button { font-size: 14px; padding: 10px; }
+    .black {
+        background: black;
+        color: white;
     }
 
-    /* --- Responsive: Desktop --- */
-    @media screen and (min-width: 769px) {
+    .btn {
+        background: #00c3ff;
+        color: black;
+    }
+
+    /* Mobile extra ajuste */
+    @media (max-width: 768px) {
         .container {
-            width: 500px;
-            margin: 60px auto;
-            padding: 25px;
+            margin-top: 30px;
         }
-        h1 { font-size: 28px; }
-        h2 { font-size: 20px; }
-        button { font-size: 16px; padding: 12px; }
     }
 </style>
 </head>
