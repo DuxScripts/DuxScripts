@@ -2,75 +2,105 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-
-<!-- IMPORTANTE para iPhone -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>Dux Hub</title>
 
 <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background: black; /* 🔥 evita blanco */
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: black;
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        background-image: url('https://media.discordapp.net/attachments/1299726509078085743/1487217477476679751/ffc9178b-182a-412e-a1a3-cec1b2d91f06.jpg?ex=69d0e875&is=69cf96f5&hm=e67ed4e91a841c5e6287b66f4663dfde7a5e922bad0d84555c4e987dd0fa940b&=&format=webp&width=1382&height=922');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        color: white;
-        text-align: center;
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://media.discordapp.net/attachments/1299726509078085743/1487217477476679751/ffc9178b-182a-412e-a1a3-cec1b2d91f06.jpg?ex=69d0e875&is=69cf96f5&hm=e67ed4e91a841c5e6287b66f4663dfde7a5e922bad0d84555c4e987dd0fa940b&=&format=webp&width=1382&height=922');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
 
-        /* 🔥 FIX iPhone safe areas */
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-    }
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
 
+.container {
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+}
+
+h1 { margin-bottom: 10px; }
+h2 { margin-top: 25px; }
+
+button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.black {
+    background: black;
+    color: white;
+}
+
+.btn {
+    background: #00c3ff;
+    color: black;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00c3ff;
+}
+
+.social {
+    background: linear-gradient(45deg, #ff004c, #00f2ff);
+    color: white;
+}
+
+/* 🔥 Partner limpio */
+.partner-box img {
+    width: 140px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.partner-text {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.apply-btn {
+    background: #00ff88;
+    color: black;
+    font-weight: bold;
+}
+
+.apply-btn:hover {
+    box-shadow: 0 0 10px #00ff88;
+}
+
+@media (max-width: 768px) {
     .container {
-        background: rgba(0,0,0,0.7);
-        padding: 20px;
-        margin: 20px auto;
-        width: 90%;
-        max-width: 500px;
-        border-radius: 15px;
-        backdrop-filter: blur(6px);
+        margin-top: 30px;
     }
-
-    h1 { margin-bottom: 10px; }
-    h2 { margin-top: 25px; }
-
-    button {
-        display: block;
-        width: 100%;
-        margin: 10px 0;
-        padding: 12px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .black {
-        background: black;
-        color: white;
-    }
-
-    .btn {
-        background: #00c3ff;
-        color: black;
-    }
-
-    /* Mobile extra ajuste */
-    @media (max-width: 768px) {
-        .container {
-            margin-top: 30px;
-        }
-    }
+}
 </style>
 </head>
 
@@ -85,6 +115,7 @@
     </button>
 
     <h2>📜 Scripts</h2>
+
     <button class="btn" onclick="window.open('https://loot-link.com/s?u80aXI5c', '_blank')">
         Sailor Piece
     </button>
@@ -96,6 +127,36 @@
     <button class="btn" onclick="window.open('https://loot-link.com/s?UXXD5EMO', '_blank')">
         Blox Fruit Blue X Hub
     </button>
+
+    <button class="btn" onclick="window.open('https://lootdest.org/s?rzgYttXk', '_blank')">
+        Anime Leveling
+    </button>
+
+    <h2>🌐 Redes</h2>
+
+    <button class="social" onclick="window.open('https://www.youtube.com/@Duxitoz', '_blank')">
+        📺 YouTube
+    </button>
+
+    <button class="social" onclick="window.open('https://www.tiktok.com/@duxscript', '_blank')">
+        🎵 TikTok
+    </button>
+
+    <h2>🤝 Partner</h2>
+
+    <img src="https://media.discordapp.net/attachments/1249006131968479272/1489773428570456134/Copilot_20260403_194729.png?ex=69d1a320&is=69d051a0&hm=2f5081c5c2d3bc56cfb5e420193696e19c5bd262b748e8778f2ac8ae4f5c1e50&=&format=webp&quality=lossless&width=210&height=315">
+
+    <div class="partner-text">
+        <b>Busco partner / ayudante para crecer este proyecto 🚀</b><br><br>
+        Alguien activo, creativo y con ganas de trabajar en equipo.<br><br>
+        💸 No hay pago inmediato, pero cuando el proyecto genere dinero,
+        recibirás <b>comisiones reales</b>.
+    </div>
+
+    <button class="apply-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeeaX5EPLgzdKoycJK93hKgXynoN0VuNT0QbXxLUWmS-FqT7g/viewform', '_blank')">
+        🚀 Aplicar ahora
+    </button>
+
 </div>
 
 </body>
